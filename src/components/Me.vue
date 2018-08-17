@@ -16,14 +16,12 @@ export default {
       userId: ''
     }
   },
-  // mounted () {
-  //   console.log(document.cookie.split(";")[0].split('=')[1]);
-  //   if(document.cookie.split(";")[0].split('=')[1]){
-  //     this.login = true;
-  //     this.userId = document.cookie.split(";")[0].split('=')[1];
-  //   }
-  //
-  // },
+  mounted () {
+    if(document.cookie.split(";")[0].split('=')[1]){
+      this.login = true;
+      this.userId = document.cookie.split(";")[0].split('=')[1];
+    }
+  },
   methods: {
     loginSuccess (data) {
       this.login = true
