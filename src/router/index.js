@@ -7,6 +7,7 @@ import Cart from '@/components/Cart'
 import SignUp from '@/components/Me/signup/SignUp'
 import ForgetPwd from '@/components/Me/forgetPwd/forgetPwd'
 import ProductDetails from  '@/components/ProductDetails/ProductDetails'
+import AddressMessage from '@/components/Me/addressMessage/AddressMessage'
 
 Vue.use(Router)
 
@@ -34,7 +35,12 @@ export default new Router({
     {
       path: '/Me',
       name: 'Me',
-      component: Me
+      component: Me,
+    },
+    {
+      path: '/AddressMessage',
+      name: 'AddressMessage',
+      component: AddressMessage
     },
     {
       path: '/SignUp',

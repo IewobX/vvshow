@@ -9,7 +9,7 @@
     </div>
     <ul class="message_item">
       <li>我的帐号</li>
-      <li>我的收货地址</li>
+      <li @click="getAddress">我的收货地址</li>
       <li>我的收藏</li>
     </ul>
   </div>
@@ -32,6 +32,16 @@
             this.user = response.body.data
           }
         })
+    },
+    methods: {
+      getAddress(){
+        this.$router.push({
+          name: 'AddressMessage',
+          params: {
+            userId: this.userId
+          }
+        })
+      }
     },
     props: ['userId']
   }

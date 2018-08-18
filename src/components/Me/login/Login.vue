@@ -40,6 +40,7 @@
                 alert(response.body.msg)
                 return
               }
+              localStorage.userId = response.body.data.split('-')[0]
               this.$emit('login_success', {'userId': response.body.data.split('-')[0]})
 
             } else {
