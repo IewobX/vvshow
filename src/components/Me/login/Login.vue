@@ -52,6 +52,7 @@
         this.$http.delete('/api/session')
           .then(response => {
             if (response.body.success) {
+              localStorage.removeItem('userId')
               alert('注销成功')
             }
           })

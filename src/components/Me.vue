@@ -19,7 +19,7 @@ export default {
   mounted () {
     if(document.cookie.split(";")[0].split('=')[1]){
       this.login = true;
-      this.userId = document.cookie.split(";")[0].split('=')[1];
+      this.userId = localStorage.userId;
     }
   },
   methods: {
