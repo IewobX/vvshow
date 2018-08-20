@@ -1,11 +1,18 @@
-.add_address{
+.operate_address{
+  .header{
+    .del{
+      position: absolute;
+      right: 8px;
+    }
+  }
+
   .main{
     padding: 0 14px;
     .at_area{
-      padding: 0;
+      padding: 0 20px 0 5px;
       height: 40px;
       background: white;
-      border: none;
+      border: 1px solid #9f9f9f;
       border-radius: 10px;
       font-size: 16px;
       color: #2c3e50;
@@ -15,10 +22,11 @@
     }
     textarea{
       width: 100%;
-      margin-left: 0px;
+      margin-left: 0;
+      font-size: 15px;
     }
-    .add_btn{
-      position: absolute;
+    .save_btn{
+      position: fixed;
       left: 0;
       bottom: 10vh;
       padding: 0;

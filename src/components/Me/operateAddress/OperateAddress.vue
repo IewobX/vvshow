@@ -1,6 +1,6 @@
 <template>
-  <div class="add_address">
-    <div class="header">新增地址</div>
+  <div class="operate_address">
+    <div class="header">地址操作<span class="del" @click="del" v-if="isMod">删除</span></div>
     <div class="main">
       <label>收货人姓名: </label><input type="text" v-model="receiverMsg.receiverName" placeholder="请输入收货人姓名"/><br />
       <label>电&nbsp;话&nbsp;号&nbsp;码:&nbsp; </label><input type="text" v-model="receiverMsg.receiverMobile" placeholder="请输入电话号码"/><br />
@@ -13,27 +13,40 @@
       </div>
       <label>详细地址: </label><br />
       <textarea v-model="receiverMsg.receiverAddress"></textarea>
-      <button class="add_btn" @click="Add_">+新增地址</button>
+      <button class="save_btn" @click="Save_">保存地址</button>
     </div>
   </div>
 </template>
 
 <script>
-  import './AddAddress.less'
+  import './OperateAddress.less'
   import VDistpicker from 'v-distpicker'
   export default {
     name: "add-address",
     data(){
       return {
+        isMod: '',
         areaSelect:false,
         receiverMsg: {
+          id: '',
           receiverName:'',
           receiverMobile:'',
           receiverProvince:'',
+          receiverZip:'',
           receiverCity:'',
           receiverDistrict:'',
           receiverAddress:''
         }
+      }
+    },
+    mounted(){
+      if(JSON.stringify(this.$route.params) !== '{}') {
+        this.isMod = true
+        this.receiverMsg = this.$route.params
+        console.log(this.receiverMsg);
+      }
+      else{
+        this.isMod = false
       }
     },
     methods:{
@@ -41,15 +54,40 @@
         this.receiverMsg.receiverProvince = data.province.value
         this.receiverMsg.receiverCity = data.city.value
         this.receiverMsg.receiverDistrict = data.area.value
+        this.receiverMsg.receiverZip = data.area.code
         this.areaSelect = false
       },
-      Add_() {
+      Save_() {
+        this.isMod?this.ModMsg():this.AddMsg();
+      },
+      ModMsg(){
+        this.$http.put('/api/shipping/' + localStorage.userId,this.receiverMsg)
+          .then(response => {
+            alert(response.body.data)
+            this.turnToAddressMessage()
+          })
+      },
+      AddMsg(){
         this.$http.post('/api/shipping/' + localStorage.userId,this.receiverMsg)
           .then(response => {
-            console.log(response.body);
+            if(response.body.success){
+              alert('新增地址成功')
+              this.turnToAddressMessage()
+            }
           })
+      },
+      del(){
+        this.$http.delete('/api/shipping/' + localStorage.userId + "/" + this.receiverMsg.id)
+          .then(response => {
+            alert(response.body.data)
+            this.turnToAddressMessage()
+          })
+      },
+      turnToAddressMessage(){
+        this.$router.push({
+          name: 'AddressMessage'
+        })
       }
-
     },
     components: {
       VDistpicker
