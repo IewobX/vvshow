@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "swiper": "^4.3.5",
+    "v-distpicker": "^1.0.17",
     "vue": "^2.5.2",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1"

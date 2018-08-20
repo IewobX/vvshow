@@ -8,6 +8,7 @@ import SignUp from '@/components/Me/signup/SignUp'
 import ForgetPwd from '@/components/Me/forgetPwd/forgetPwd'
 import ProductDetails from  '@/components/ProductDetails/ProductDetails'
 import AddressMessage from '@/components/Me/addressMessage/AddressMessage'
+import AddAddress from '@/components/Me/addAddress/AddAddress'
 
 Vue.use(Router)
 
@@ -41,6 +42,11 @@ export default new Router({
       path: '/AddressMessage',
       name: 'AddressMessage',
       component: AddressMessage
+    },
+    {
+      path: '/AddAddress',
+      name: 'AddAddress',
+      component: AddAddress
     },
     {
       path: '/SignUp',

@@ -5,7 +5,7 @@
 
     </div>
     <div class="add_">
-      <!--<button @click="turnToAdd">新增</button>-->
+      <button @click="turnToAdd">新增</button>
     </div>
   </div>
 </template>
@@ -26,6 +26,13 @@ export default {
         this.address = response.body.data
         console.log(response.body.data);
       })
+  },
+  methods: {
+    turnToAdd() {
+      this.$router.push({
+        name: 'AddAddress',
+      })
+    }
   }
 }
 </script>
