@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Classify from '@/components/Classify'
 import Me from '@/components/Me'
 import Cart from '@/components/Cart'
+import Products from '@/components/Products'
 import SignUp from '@/components/Me/signup/SignUp'
 import ForgetPwd from '@/components/Me/forgetPwd/forgetPwd'
 import ProductDetails from  '@/components/ProductDetails/ProductDetails'
@@ -57,6 +58,11 @@ export default new Router({
       path: '/forgetPwd',
       name: 'forgetPwd',
       component: ForgetPwd
+    },
+    {
+      path: '/Products',
+      name: 'Products',
+      component: Products
     }
   ]
 })
