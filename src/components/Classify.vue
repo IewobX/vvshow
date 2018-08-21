@@ -4,7 +4,7 @@
     <div class="product_category">
       <div class="category_tab">
         <ul>
-          <router-link  :to="{name: 'categoryName', params: {category : item.id}}" :key="$route.fullPath + item.id" v-for="item in categories" tag="li">
+          <router-link :to="{name: 'categoryName', params: {category : item.id}}" :key="$route.fullPath + item.id" v-for="item in categories" tag="li">
             {{item.name}}
           </router-link>
         </ul>
@@ -38,7 +38,6 @@ export default {
       }))
     }
   },
-
   mounted() {
     this.getCategory(0).then(result => {
       this.categories = result
