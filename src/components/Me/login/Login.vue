@@ -7,7 +7,6 @@
     <label>密&nbsp;&nbsp;&nbsp;码: </label><input type="password" v-model="password" placeholder="请输入您的密码"/><br />
     <router-link :to="{name: 'SignUp'}" tag="a">新用户?点击注册</router-link><a @click="forgetPwd" class="edit_pwd">忘记密码?</a>
     <button @click="login">登录</button>
-    <button @click="deleteUser">注销</button>
   </div>
 </template>
 
@@ -34,7 +33,6 @@
         }
         this.$http.post('/api/session', {username: this.username, password: this.password})
           .then(response => {
-            console.log(response)
             if (response.body.success) {
               if(!response.body.data){
                 alert(response.body.msg)
@@ -45,15 +43,6 @@
 
             } else {
               alert(response.body.msg)
-            }
-          })
-      },
-      deleteUser () {
-        this.$http.delete('/api/session')
-          .then(response => {
-            if (response.body.success) {
-              localStorage.removeItem('userId')
-              alert('注销成功')
             }
           })
       },

@@ -13,7 +13,7 @@
       </div>
       <label>详细地址: </label><br />
       <textarea v-model="receiverMsg.receiverAddress"></textarea>
-      <button class="save_btn" @click="Save_">保存地址</button>
+      <button class="btn_" @click="Save_">保存地址</button>
     </div>
   </div>
 </template>
@@ -43,7 +43,6 @@
       if(JSON.stringify(this.$route.params) !== '{}') {
         this.isMod = true
         this.receiverMsg = this.$route.params
-        console.log(this.receiverMsg);
       }
       else{
         this.isMod = false
@@ -58,6 +57,18 @@
         this.areaSelect = false
       },
       Save_() {
+        if(!this.receiverMsg.receiverName){
+          alert('请输入用户名')
+          return
+        }
+        if(!this.receiverMsg.receiverMobile){
+          alert('请输入电话号码')
+          return
+        }
+        if(!this.receiverMsg.receiverDistrict){
+          alert('请输入地址')
+          return
+        }
         this.isMod?this.ModMsg():this.AddMsg();
       },
       ModMsg(){

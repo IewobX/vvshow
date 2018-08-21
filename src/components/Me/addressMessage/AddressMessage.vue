@@ -16,7 +16,7 @@
         </p>
       </div>
       <div class="add_">
-        <button class="add_" @click="turnToAdd">新增</button>
+        <button class="btn_" @click="turnToAdd">新增</button>
       </div>
     </div>
   </div>

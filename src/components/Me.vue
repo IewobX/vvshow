@@ -1,6 +1,6 @@
 <template>
   <div class="me">
-    <Personal v-if="login" :userId="this.userId"></Personal>
+    <Personal v-if="login" :userId="this.userId" @sign_out="signOut"></Personal>
     <Login @login_success="loginSuccess" v-else></Login>
   </div>
 </template>
@@ -26,6 +26,9 @@ export default {
     loginSuccess (data) {
       this.login = true
       this.userId = data.userId
+    },
+    signOut(){
+      this.login = false
     }
   },
   components: {

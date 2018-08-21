@@ -12,6 +12,7 @@
       <li @click="getAddress">我的收货地址</li>
       <li>我的收藏</li>
     </ul>
+    <button class="btn_" @click="SignOut">注销</button>
   </div>
 </template>
 
@@ -27,7 +28,6 @@
     mounted () {
       this.$http.get('/api/user/' + this.userId)
         .then(response => {
-          console.log(response.body)
           if (response.body.success) {
             this.user = response.body.data
           }
@@ -41,7 +41,17 @@
             userId: this.userId
           }
         })
-      }
+      },
+      SignOut () {
+        this.$http.delete('/api/session')
+          .then(response => {
+            if (response.body.success) {
+              localStorage.removeItem('userId')
+              alert('注销成功')
+              this.$emit('sign_out')
+            }
+          })
+      },
     },
     props: ['userId']
   }
