@@ -16,7 +16,6 @@
     },
     created(){
       this.listArgs = this.$route.params
-      console.log(this.listArgs);
     },
     components: {
       ProdustsList
