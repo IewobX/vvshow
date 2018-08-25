@@ -10,6 +10,9 @@ import ForgetPwd from '@/components/Me/forgetPwd/forgetPwd'
 import ProductDetails from  '@/components/ProductDetails/ProductDetails'
 import AddressMessage from '@/components/Me/addressMessage/AddressMessage'
 import OperateAddress from '@/components/Me/operateAddress/OperateAddress'
+import CreateOrder from '@/components/Cart/CreateOrder/CreateOrder'
+import Pay from '@/components/Cart/Pay/Pay'
+import Orders from '@/components/Me/Orders/Orders'
 
 Vue.use(Router)
 
@@ -63,6 +66,21 @@ export default new Router({
       path: '/Products',
       name: 'Products',
       component: Products
+    },
+    {
+      path: '/CreateOrder',
+      name: 'CreateOrder',
+      component: CreateOrder
+    },
+    {
+      path: '/Pay',
+      name: 'Pay',
+      component: Pay
+    },
+    {
+      path: '/Orders',
+      name: 'Orders',
+      component: Orders
     }
   ]
 })

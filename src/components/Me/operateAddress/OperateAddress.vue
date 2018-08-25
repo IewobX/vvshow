@@ -40,9 +40,10 @@
       }
     },
     mounted(){
-      if(JSON.stringify(this.$route.params) !== '{}') {
+      console.log(this.$route.params);
+      if(this.$route.params.item) {
         this.isMod = true
-        this.receiverMsg = this.$route.params
+        this.receiverMsg = this.$route.params.item
       }
       else{
         this.isMod = false
@@ -74,6 +75,7 @@
       ModMsg(){
         this.$http.put('/api/shipping/' + localStorage.userId,this.receiverMsg)
           .then(response => {
+            console.log('修改')
             alert(response.body.data)
             this.turnToAddressMessage()
           })
@@ -82,6 +84,7 @@
         this.$http.post('/api/shipping/' + localStorage.userId,this.receiverMsg)
           .then(response => {
             if(response.body.success){
+              console.log('新增')
               alert('新增地址成功')
               this.turnToAddressMessage()
             }
@@ -96,7 +99,10 @@
       },
       turnToAddressMessage(){
         this.$router.push({
-          name: 'AddressMessage'
+          name: 'AddressMessage',
+          params: {
+            choose: this.$route.params.flag
+          }
         })
       }
     },

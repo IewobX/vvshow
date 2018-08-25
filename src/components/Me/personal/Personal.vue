@@ -10,6 +10,7 @@
     <ul class="message_item">
       <li>我的帐号</li>
       <li @click="getAddress">我的收货地址</li>
+      <li @click="getOrder">我的订单</li>
       <li>我的收藏</li>
     </ul>
     <button class="btn_" @click="SignOut">注销</button>
@@ -32,6 +33,11 @@
             this.user = response.body.data
           }
         })
+        .catch(response => {
+          if(response.status===401){
+            this.$emit('sign_out')
+          }
+        })
     },
     methods: {
       getAddress(){
@@ -40,6 +46,11 @@
           params: {
             userId: this.userId
           }
+        })
+      },
+      getOrder(){
+        this.$router.push({
+          name: 'Orders',
         })
       },
       SignOut () {
@@ -52,6 +63,7 @@
             }
           })
       },
+
     },
     props: ['userId']
   }

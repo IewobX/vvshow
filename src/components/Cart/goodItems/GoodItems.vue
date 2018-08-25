@@ -4,17 +4,19 @@
         <div class="checkbox">
           <input type="checkbox" :checked="item.checked" @click="select(item)"/>
         </div>
-        <img />
+        <div class="proImg">
+          <img src="../../../assets/logo.png"/>
+        </div>
         <div class="details">
-          <p>{{item.name}}</p>
+          <p>{{item.productName}}</p>
           <div class="num">
-            <div class="simplePrice">¥{{item.price}}</div>
+            <div class="simplePrice">¥{{item.productPrice}}</div>
             <button @click="simpleNumber(item,'-')">-</button>
-            <input type="text" v-model="item.number">
+            <input type="text" v-model="item.quantity">
             <button @click="simpleNumber(item,'+')">+</button>
           </div>
-          <a class="del" @click="delItem(index)">删除</a>
-          <div class="total">¥{{item.price*item.number}}</div>
+          <a class="del" @click="confirmDelItem(item,index)">删除</a>
+          <div class="total">¥{{item.productPrice*item.quantity}}</div>
         </div>
       </div>
       <div class="alltotal">
@@ -23,7 +25,7 @@
         </div>
         <span>总计:</span>
         <span class="alltotalValue" v-text="alltotalPrice">123</span>
-        <div class="pay">去支付</div>
+        <div class="pay" @click="turnToOrder">去结算</div>
       </div>
     </div>
 </template>
@@ -40,24 +42,26 @@ export default {
     }
   },
   mounted () {
-    this.items = [
-      {name: '果缤纷', price: 4, number: 1, checked: false},
-      {name: '康师傅', price: 1, number: 1, checked: false}
-    ]
+    this.$http.get('/api/carts/' + localStorage.userId)
+      .then(response => {
+        this.items = response.body.data.cartProductVOList
+      })
   },
   methods: {
     simpleNumber (item, flag) {
+      console.log(item);
       if (flag === '+') {
-        item.number++
+        item.quantity++
       }
       if (flag === '-') {
-        if (item.number <= 1) {
-          item.number = 1
+        if (item.quantity <= 1) {
+          item.quantity = 1
           return
         }
-        item.number--
+        item.quantity--
       }
-      this.alltotalValue()
+      this.allTotalValue()
+      this.modifyItem(item)
     },
     select (item) {
       item.checked = !item.checked
@@ -68,30 +72,55 @@ export default {
         }
       })
       this.isSelectedAll = result
-      this.alltotalValue()
+      this.allTotalValue()
     },
     selectedAll () {
       this.isSelectedAll = !this.isSelectedAll
       this.items.forEach((value, index) => {
         value.checked = this.isSelectedAll
       })
-      this.alltotalValue()
+      this.allTotalValue()
     },
-    alltotalValue () {
+    allTotalValue () {
       this.alltotalPrice = 0
       this.items.forEach(item => {
         if (item.checked) {
-          this.alltotalPrice += item.price * item.number
+          this.alltotalPrice += item.productPrice * item.quantity
         }
       })
     },
-    delItem (index) {
+    confirmDelItem (item,index) {
       let r = confirm('确认删除?')
       if (r === true) {
         this.items.splice(index,1)
-        this.alltotalValue()
+        this.allTotalValue()
+        this.delItem(item)
       }
-    }
+    },
+    modifyItem(item){
+      this.$http.put('/api/carts/' + localStorage.userId + '/' + item.productId + '?count=' + item.quantity)
+        .then(response => {
+          // console.log(response.body.data);
+        })
+    },
+    delItem(item){
+      this.$http.delete('/api/carts/' + localStorage.userId + '?productIds=' + item.productId)
+        .then(response => {
+          console.log(response.body.data);
+        })
+    },
+    turnToOrder(){
+      let order = []
+      this.items.forEach(item => {
+        if (item.checked) {
+          order.push(item)
+        }
+      })
+      localStorage.order = JSON.stringify(order)
+      this.$router.push({
+        name: 'CreateOrder'
+      })
+    },
   }
 }
 </script>

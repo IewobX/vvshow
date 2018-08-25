@@ -16,7 +16,10 @@
         this.$emit('cancelBuy');
       },
       addToCart(){
-        alert(1)
+        this.$http.post('/api/carts/' + localStorage.userId + "/" + this.itemMsg.id + '?count=1')
+          .then(response => {
+            console.log(response.body);
+          })
       }
     },
     props: ['itemMsg']
