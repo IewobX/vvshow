@@ -63,7 +63,7 @@ export default {
     turnAddressToOrder(item){
       if(this.judgmentFromOrder){
         this.$router.push({
-          name: 'Order',
+          name: 'CreateOrder',
           params: {
             shipping: item
           }

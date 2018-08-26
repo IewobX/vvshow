@@ -13,6 +13,7 @@ import OperateAddress from '@/components/Me/operateAddress/OperateAddress'
 import CreateOrder from '@/components/Cart/CreateOrder/CreateOrder'
 import Pay from '@/components/Cart/Pay/Pay'
 import Orders from '@/components/Me/Orders/Orders'
+import SimpleOrder from '@/components/Me/SimpleOrder/SimpleOrder'
 
 Vue.use(Router)
 
@@ -81,6 +82,11 @@ export default new Router({
       path: '/Orders',
       name: 'Orders',
       component: Orders
+    },
+    {
+      path: '/SimpleOrder',
+      name: 'SimpleOrder',
+      component: SimpleOrder
     }
   ]
 })

@@ -44,9 +44,6 @@
         items: []
       }
     },
-    created(){
-
-    },
     mounted(){
       this.items = JSON.parse(localStorage.order)
       if(this.$route.params.shipping){
@@ -89,14 +86,20 @@
         this.$http.post('/api/orders/' + this.address.id + '/' + localStorage.userId + '?productIds=' + this.getProductIds())
           .then(response => {
             console.log(response)
-            this.turnToPay()
+            if(response.body.success){
+              this.turnToPay(response.body.data)
+            }
+            else{
+              alert('该订单已创建')
+            }
+
           })
       },
-      turnToPay(){
+      turnToPay(orderMsg){
         this.$router.push({
           name: 'Pay',
           params: {
-            price: this.totalPrice
+            orderMsg: orderMsg
           }
         })
       }

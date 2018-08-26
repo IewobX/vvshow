@@ -15,7 +15,8 @@
       }
     },
     mounted(){
-      this.price = this.$route.params.price
+      console.log(this.$route.params);
+      this.price = this.$route.params.orderMsg.payment
     }
   }
 </script>
